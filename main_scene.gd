@@ -2,20 +2,16 @@ extends Node2D
 
 @export var factory_scene: PackedScene
 
-@onready var ui = $Ui
 @onready var camera = $Camera
-@onready var background = $Camera/Background
+@onready var floorplan_ui = $FloorplanUi
 
 func _ready() -> void:
 	Globals.set_camera(camera)
-	camera.panning.connect(_on_camera_panning)
-	camera.zooming_in.connect(_on_camera_zooming)
-	camera.zooming_out.connect(_on_camera_zooming)
-
-	ui.selection_dragging.connect(_on_ui_selection_dragging)
 
 	var factory = factory_scene.instantiate()
-	factory.position = Vector2(5 * Globals.PIXELS_PER_METER, 10 * Globals.PIXELS_PER_METER)
+	# TODO: building_x, building_y or building_position and building_size in meters
+	#       that the FactoryBuilding scales automatically
+	factory.position = Vector2(5 * Globals.PIXELS_PER_METER, 4 * Globals.PIXELS_PER_METER)
 	factory.building_width = 8
 	factory.building_depth = 10
 	factory.building_name = "Constructor"
@@ -23,14 +19,14 @@ func _ready() -> void:
 	add_child(factory)
 	
 	factory = factory_scene.instantiate()
-	factory.position = Vector2(15 * Globals.PIXELS_PER_METER, 10 * Globals.PIXELS_PER_METER)
+	factory.position = Vector2(15 * Globals.PIXELS_PER_METER, 4 * Globals.PIXELS_PER_METER)
 	factory.building_width = 8
 	factory.building_depth = 10
 	factory.building_name = "Constructor"
 	factory.input_event.connect(_on_factory_building_input_event)
 	add_child(factory)
 
-func _on_ui_selection_dragging(position: Vector2, size: Vector2):
+func _on_floorplan_ui_selection_dragging(position: Vector2, size: Vector2) -> void:
 	var world_position = (position - camera.position) * camera.zoom.x
 	var world_size = size * camera.zoom.x
 	
@@ -38,18 +34,20 @@ func _on_ui_selection_dragging(position: Vector2, size: Vector2):
 	var query = PhysicsShapeQueryParameters2D.new()
 	query.shape = RectangleShape2D.new()
 	query.shape.extents = world_size / 2
-	query.transform = Transform2D()
-	query.transform.origin = world_position + (world_size / 2)
+	query.transform = Transform2D(0, world_position + (world_size / 2))
 	query.collision_mask = 2
-	var selected = space.intersect_shape(query)
-	print("Selected: ", selected)
+	query.collide_with_areas = true
+	var selected_items = space.intersect_shape(query)
+	for selected_item in selected_items:
+		print("Selected ", selected_item.collider.factory_name())
+	#print("Selected: ", selected)
 
 func _on_factory_building_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if (event.is_action_pressed("select")):
 		print("Building selected")
 
 func _on_camera_panning() -> void:
-	background.redraw_grid(camera.position, camera.zoom.x)
-	
-func _on_camera_zooming() -> void:
-	background.redraw_grid(camera.position, camera.zoom.x)
+	floorplan_ui.redraw_grid(camera.position, camera.zoom.x)
+
+func _on_camera_zooming(percentage: float) -> void:
+	floorplan_ui.redraw_grid(camera.position, camera.zoom.x)

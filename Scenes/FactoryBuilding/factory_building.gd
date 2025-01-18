@@ -12,6 +12,9 @@ signal deselected
 @onready var factory_label = $FactorySprite/FactoryLabel
 @onready var collision = $CollisionBox
 
+func factory_name() -> String:
+	return factory_label.text
+
 func _ready() -> void:
 	var pixels_width = building_width * Globals.PIXELS_PER_METER
 	var pixels_depth = building_depth * Globals.PIXELS_PER_METER
@@ -24,5 +27,6 @@ func _ready() -> void:
 
 	# Collision boxes are centered around their origin, not top left like Area2D
 	collision.position = Vector2(pixels_width / 2, pixels_depth / 2)
-	collision.shape.size.x = pixels_width
-	collision.shape.size.y = pixels_depth
+	collision.shape.set_size(Vector2(pixels_width, pixels_depth))
+
+	print("Factory: ", position, " - ", factory_image.size)

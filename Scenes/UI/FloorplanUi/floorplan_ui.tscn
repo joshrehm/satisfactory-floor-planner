@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://jt22ceo6xh1p"]
+
+[ext_resource type="Script" path="res://Scenes/UI/FloorplanUi/floorplan_ui.gd" id="1_if6gf"]
+[ext_resource type="PackedScene" uid="uid://3jjp7nwvusos" path="res://Scenes/UI/Background/background.tscn" id="2_kl0r6"]
+
+[node name="Ui" type="CanvasLayer"]
+script = ExtResource("1_if6gf")
+
+[node name="Background" parent="." instance=ExtResource("2_kl0r6")]
+
+[node name="SelectionBox" type="ReferenceRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+border_width = 4.0
+editor_only = false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3jjp7nwvusos"]
 
-[ext_resource type="Script" path="res://Scenes/Background/background.gd" id="1_dygxg"]
+[ext_resource type="Script" path="res://Scenes/UI/Background/background.gd" id="1_dygxg"]
 
 [node name="Background" type="CanvasLayer"]
 layer = -1

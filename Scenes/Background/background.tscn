@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://3jjp7nwvusos"]
+
+[ext_resource type="Script" path="res://Scenes/Background/background.gd" id="1_dygxg"]
+
+[node name="Background" type="CanvasLayer"]
+layer = -1
+script = ExtResource("1_dygxg")
+
+[node name="BackgroundRenderer" type="Node2D" parent="."]
+
+[connection signal="draw" from="BackgroundRenderer" to="." method="_on_background_renderer_draw"]

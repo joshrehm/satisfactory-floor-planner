@@ -29,15 +29,14 @@ func set_zoom_percentage(percentage: float) -> void:
 func _apply_zoom(delta_zoom: float) -> void:
 	# We grab the current world mouse position so we can zoom towards or away
 	# from the mouse cursor
-	var start_mouse_position = get_global_mouse_position() * zoom.x
+	var start_mouse_position = get_global_mouse_position()
 
 	zoom += Vector2(delta_zoom, delta_zoom)
 	zoom = zoom.clampf(MIN_ZOOM, MAX_ZOOM)
 	
 	# Move the camera towards the mouse cursor
-	var end_mouse_position = get_global_mouse_position() * zoom.x
-	position += end_mouse_position - start_mouse_position
-	print(start_mouse_position, " -> ", end_mouse_position)
+	# TODO: Should we emit panning?
+	position -= (get_global_mouse_position() - start_mouse_position)
 	
 	if delta_zoom > 0:
 		zooming_in.emit(zoom.x * 100.0)

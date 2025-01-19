@@ -28,6 +28,10 @@ window/size/viewport_height=1080
 
 project/assembly_name="New Game Project"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+
 [global_group]
 
 factory_buildings="Group containing all factory building items"

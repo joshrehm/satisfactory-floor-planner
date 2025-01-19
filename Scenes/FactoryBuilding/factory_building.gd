@@ -1,32 +1,32 @@
 extends Area2D
 
-signal selected
-signal deselected
+var building_type: String : 
+	get: return building_type
 
-@export var building_width: float
-@export var building_depth: float
-@export var building_height: float
-@export var building_name: String
+var building_position: Vector2 : 
+	set(value):
+		building_position = value
+		if (is_node_ready()):
+			position = building_position * Globals.PIXELS_PER_METER
+	get: return building_position
 
-@onready var factory_image = $FactorySprite
-@onready var factory_label = $FactorySprite/FactoryLabel
+var building_size: Vector2 :
+	get: return building_size
+
+@onready var building_image = $BuildingSprite
+@onready var building_label = $BuildingSprite/BuildingLabel
 @onready var collision = $CollisionBox
 
-func factory_name() -> String:
-	return factory_label.text
+func initialize(type: String, position: Vector2, size: Vector2) -> void:
+	building_type = type
+	building_position = position
+	building_size = size
 
 func _ready() -> void:
-	var pixels_width = building_width * Globals.PIXELS_PER_METER
-	var pixels_depth = building_depth * Globals.PIXELS_PER_METER
-
-	factory_label.text = building_name
-
-	factory_image.position = Vector2(0, 0)
-	factory_image.size.x = pixels_width
-	factory_image.size.y = pixels_depth
-
-	# Collision boxes are centered around their origin, not top left like Area2D
-	collision.position = Vector2(pixels_width / 2, pixels_depth / 2)
-	collision.shape.set_size(Vector2(pixels_width, pixels_depth))
-
-	print("Factory: ", position, " - ", factory_image.size)
+	building_label.text = building_type
+	
+	position = building_position * Globals.PIXELS_PER_METER
+	building_image.size = building_size * Globals.PIXELS_PER_METER
+	
+	collision.position = building_image.size / 2.0
+	collision.shape.set_size(building_image.size)

@@ -2,6 +2,8 @@ extends Node2D
 
 @export var factory_scene: PackedScene
 
+var manager: FloorManager = FloorManager.new(self)
+
 @onready var camera = $Camera
 @onready var floorplan_ui = $FloorplanUi
 
@@ -9,20 +11,12 @@ func _ready() -> void:
 	Globals.set_camera(camera)
 
 	var factory = factory_scene.instantiate()
-	# TODO: building_x, building_y or building_position and building_size in meters
-	#       that the FactoryBuilding scales automatically
-	factory.position = Vector2(5 * Globals.PIXELS_PER_METER, 4 * Globals.PIXELS_PER_METER)
-	factory.building_width = 8
-	factory.building_depth = 10
-	factory.building_name = "Constructor"
+	factory.initialize("Constructor", Vector2(5, 4), Vector2(8, 10))
 	factory.input_event.connect(_on_factory_building_input_event)
 	add_child(factory)
 	
 	factory = factory_scene.instantiate()
-	factory.position = Vector2(15 * Globals.PIXELS_PER_METER, 4 * Globals.PIXELS_PER_METER)
-	factory.building_width = 8
-	factory.building_depth = 10
-	factory.building_name = "Constructor"
+	factory.initialize("Constructor", Vector2(15, 4), Vector2(8, 10))
 	factory.input_event.connect(_on_factory_building_input_event)
 	add_child(factory)
 
@@ -38,9 +32,8 @@ func _on_floorplan_ui_selection_dragging(position: Vector2, size: Vector2) -> vo
 	query.collision_mask = 2
 	query.collide_with_areas = true
 	var selected_items = space.intersect_shape(query)
-	for selected_item in selected_items:
-		print("Selected ", selected_item.collider.factory_name())
-	#print("Selected: ", selected)
+	for selected_index in range(0, selected_items.size()):
+		print(selected_index + 1, "> ", selected_items[selected_index].collider.building_type)
 
 func _on_factory_building_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if (event.is_action_pressed("select")):

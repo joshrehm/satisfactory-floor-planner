@@ -2,9 +2,9 @@ extends CanvasLayer
 
 @export var foundation_size:        = 8.0  # Foundation grid
 @export var snap_size:              = 2    # Snapping grid
-@export var foundation_grid_color:  = Color(0.6, 0.6, 0.6)
+@export var foundation_grid_color:  = Color(0.5, 0.5, 0.5)
 @export var foundation_grid_weight: = 2
-@export var snap_grid_color:        = Color(0.4, 0.4, 0.4)
+@export var snap_grid_color:        = Color(0.3, 0.3, 0.3)
 @export var snap_grid_weight:       = 1
 
 var camera_position: = Vector2(0, 0)

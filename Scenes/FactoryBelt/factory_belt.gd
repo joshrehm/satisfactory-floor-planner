@@ -82,19 +82,7 @@ func tangent_lines(x1: float, y1: float, r1: float, x2: float, y2: float, r2: fl
 		results.append(l22)
 		
 	return results
-	
-#func tangent_to_line(a: float, b: float, c: float) -> Array:
-	#var pointA: Vector2
-	#var pointB: Vector2
-	#
-	#if (abs(a) < abs(b)):
-		#pointA = Vector2(-10000, (-c - a * -10000) / b)
-		#pointB = Vector2( 10000, (-c - a * 10000) / b)
-	#else:
-		#pointA = Vector2((-c - b * -10000) / a, -10000)
-		#pointB = Vector2((-c - b * 10000) / a, 10000)
-#
-	#return [ pointA, pointB ]
+
 func tangent_to_line(center_a: Vector2, radius_a: float, center_b: Vector2, radius_b: float, a: float, b: float, c: float) -> Array:
 	# Find the tangent point on circle A
 	var x_a = center_a.x
@@ -120,6 +108,17 @@ func tangent_to_line(center_a: Vector2, radius_a: float, center_b: Vector2, radi
 	
 	# Return the tangent segment
 	return [tangent_point_a, tangent_point_b]
+
+func get_aligned_tangent(center: Vector2, start: Vector2, end: Vector2, direction: Vector2) -> Vector2:
+	var r_start = (start - center).normalized()
+	var r_tangent = (end - center).normalized()
+	
+	var rotation = r_start.cross(direction)
+	
+	if rotation > 0:
+		return Vector2(-r_tangent.y, r_tangent.x)
+	else:  # Clockwise rotation
+		return Vector2(r_tangent.y, -r_tangent.x)
 
 func draw_belt():
 	for support_index in supports.size():
@@ -147,14 +146,15 @@ func draw_belt():
 					start_arc_center = start_position + start_belt_direction.rotated(PI / 2) * BELT_TURN_RADIUS
 
 				# Draw red line to show arc center for turn
-				draw_line(start_arc_center, start_position, Color(1.0, 0.0, 0.0), 2)
-				draw_circle(start_arc_center, BELT_TURN_RADIUS, Color(1.0, 0.0, 0.0), false, 2)
+				#draw_line(start_arc_center, start_position, Color(1.0, 0.0, 0.0), 2)
+				#draw_circle(start_arc_center, BELT_TURN_RADIUS, Color(1.0, 0.0, 0.0), false, 2)
 
 				var end_arc_center
 				var to_start = (start_position - end_position).normalized()
 				var to_start_cross = end_belt_direction.cross(to_start)
 				if (to_start_cross == 0):
 					# Curve from start, but straight to this point, so no curve on this side
+					# TODO: Make me work?
 					pass 
 				else:
 					if (to_start_cross < 0):
@@ -165,21 +165,51 @@ func draw_belt():
 						end_arc_center = end_position + end_belt_direction.rotated(PI / 2) * BELT_TURN_RADIUS
 
 					# Draw green for the turn we're coming into
-					draw_line(end_arc_center, end_position, Color(0.0, 1.0, 0.0), 2)
-					draw_circle(end_arc_center, BELT_TURN_RADIUS, Color(0.0, 1.0, 0.0), false, 2)
+					#draw_line(end_arc_center, end_position, Color(0.0, 1.0, 0.0), 2)
+					#draw_circle(end_arc_center, BELT_TURN_RADIUS, Color(0.0, 1.0, 0.0), false, 2)
 
 					var tangents = tangent_lines(start_arc_center.x, start_arc_center.y, BELT_TURN_RADIUS, end_arc_center.x, end_arc_center.y, BELT_TURN_RADIUS)
-					for tangent_index in tangents.size():
-						var tangent = tangents[tangent_index]
-						var line = tangent_to_line(start_arc_center, BELT_TURN_RADIUS, end_arc_center, BELT_TURN_RADIUS, tangent[0], tangent[1], tangent[2])
-						draw_line(line[0], line[1], Color(0.0, 0.0, 1.0), 2)
-						var arc_direction = (line[0] - start_position).normalized()
-						var tangent_cross = start_belt_direction.cross(arc_direction)
-						print("Tangent[", tangent_index, "] : ", line[0], " Cross: ", tangent_cross, " To End Cross: ", to_end_cross)
-						if ((tangent_cross > 0 and to_end_cross > 0) or
-							(tangent_cross < 0 and to_end_cross < 0)):
-							draw_line(line[0], line[1], Color(0.0, 0.0, 1.0), 2)
-					
+					var tangent_lines = tangents.map(func(tangent: Array) -> Array:
+						return tangent_to_line(start_arc_center, BELT_TURN_RADIUS, end_arc_center, BELT_TURN_RADIUS, tangent[0], tangent[1], tangent[2])
+					)
+					for tangent_index in tangent_lines.size():
+						var line = tangent_lines[tangent_index]
+						
+						var tandir = get_aligned_tangent(start_arc_center, start_position, line[0], start_belt_direction)
+						var enddir = (line[1] - line[0]).normalized()
+						#draw_arrow(line[0], tandir * Globals.PIXELS_PER_METER, Color(1.0, 0.0, 0.0), 2)
+						
+						var end_tandir = get_aligned_tangent(end_arc_center, end_position, line[1], end_belt_direction)
+						#draw_arrow(line[1], end_tandir * Globals.PIXELS_PER_METER, Color(1.0, 0.0, 0.0), 2)
+						
+						if (is_equal_approx(tandir.angle(), enddir.angle()) and is_equal_approx(end_tandir.angle(), enddir.angle())):
+							# Determine start and end angles for the first arc
+							var start_angle_1 = (start_position - start_arc_center).angle()
+							var end_angle_1 = (line[0] - start_arc_center).angle()
+
+							# Adjust for clockwise or counterclockwise direction
+							if to_end_cross > 0 and start_angle_1 > end_angle_1:  # Counterclockwise
+								start_angle_1 -= TAU
+
+							# Draw the first arc
+							draw_arc(start_arc_center, BELT_TURN_RADIUS, start_angle_1, end_angle_1, 6, Color(0.7, 0.7, 0.7), BELT_PIXELS_WIDTH)
+
+							# Draw the straight line
+							draw_line(line[0], line[1], Color(0.7, 0.7, 0.7), BELT_PIXELS_WIDTH)
+
+							# Determine start and end angles for the second arc
+							var start_angle_2 = (end_position - end_arc_center).angle()
+							var end_angle_2 = (line[1] - end_arc_center).angle()
+							if (end_angle_2 < start_angle_2):
+								var temp = start_angle_2
+								start_angle_2 = end_angle_2
+								end_angle_2 = temp
+
+							#if to_start_cross < 0 and start_angle_2 < end_angle_2:  # Counterclockwise
+							#	end_angle_2 -= TAU
+								
+							# Draw the second arc
+							draw_arc(end_arc_center, BELT_TURN_RADIUS, start_angle_2, end_angle_2, 6, Color(0.7, 0.7, 0.7), BELT_PIXELS_WIDTH)
 
 		draw_support(start_position, start_belt_direction.angle())
 

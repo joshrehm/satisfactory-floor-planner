@@ -57,6 +57,10 @@ func _input(event: InputEvent) -> void:
 		_apply_zoom(-zoom_speed)
 
 func _unhandled_input(event: InputEvent) -> void:
+	#var pos = get_global_mouse_position()
+	#print("Mouse: (", pos.x, ", ", pos.y, ") (", floor(pos.x / Globals.PIXELS_PER_METER),
+	#	", ", floor(pos.y / Globals.PIXELS_PER_METER), ")")
+		
 	if not is_panning or not event is InputEventMouseMotion:
 		return
 

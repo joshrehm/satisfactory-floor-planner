@@ -4,7 +4,8 @@ extends Node2D
 const BELT_PIXELS_WIDTH: = 1 * Globals.PIXELS_PER_METER 
 const BELT_TURN_RADIUS:  = 2 * Globals.PIXELS_PER_METER
 
-var supports = []
+var belts = []
+#var supports = []
 var building = false
 var angle = 0.0
 var step = deg_to_rad(10)
@@ -120,17 +121,35 @@ func get_aligned_tangent(center: Vector2, start: Vector2, end: Vector2, directio
 	else:  # Clockwise rotation
 		return Vector2(r_tangent.y, -r_tangent.x)
 
-func draw_belt():
+func draw_belts() -> void:
+	for belt_index in belts.size():
+		draw_belt(belt_index, belts[belt_index])
+	
+func draw_belt(index: int, supports: Array) -> void:
 	for support_index in supports.size():
 		var start_support = supports[support_index]
 		var start_position = start_support[0]
 		var start_belt_direction = Vector2(cos(start_support[1]), sin(start_support[1]))
 
+		var straight_to_end = null
+		var end_support
+		var end_position
+		var end_belt_direction
+		
 		if (support_index + 1 < supports.size()):
-			var end_support = supports[support_index + 1]
-			var end_position = end_support[0]
-			var end_belt_direction = Vector2(cos(end_support[1]), sin(end_support[1]))
-
+			end_support = supports[support_index + 1]
+			end_position = end_support[0]
+			end_belt_direction = Vector2(cos(end_support[1]), sin(end_support[1]))
+		elif (building == true and index == belts.size() - 1):
+			end_position = get_global_mouse_position()
+			end_position = Vector2(
+				floor(end_position.x / Globals.PIXELS_PER_METER) * Globals.PIXELS_PER_METER,
+		   		floor(end_position.y / Globals.PIXELS_PER_METER) * Globals.PIXELS_PER_METER)
+			end_belt_direction = Vector2(cos(angle), sin(angle))
+		else:
+			end_position = null
+			
+		if (end_position != null):
 			var start_arc_center
 			var to_end = (end_position - start_position).normalized()
 			var to_end_cross = start_belt_direction.cross(to_end)
@@ -155,6 +174,7 @@ func draw_belt():
 				if (to_start_cross == 0):
 					# Curve from start, but straight to this point, so no curve on this side
 					# TODO: Make me work?
+					straight_to_end = end_position
 					pass 
 				else:
 					if (to_start_cross < 0):
@@ -194,6 +214,11 @@ func draw_belt():
 							# Draw the first arc
 							draw_arc(start_arc_center, BELT_TURN_RADIUS, start_angle_1, end_angle_1, 6, Color(0.7, 0.7, 0.7), BELT_PIXELS_WIDTH)
 
+							if (straight_to_end != null):
+								draw_line(line[0], straight_to_end, Color(0.7, 0.7, 0.7), BELT_PIXELS_WIDTH)
+								straight_to_end = null
+								continue
+
 							# Draw the straight line
 							draw_line(line[0], line[1], Color(0.7, 0.7, 0.7), BELT_PIXELS_WIDTH)
 
@@ -218,9 +243,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if (event.pressed == true):
 			if (event.button_index == MOUSE_BUTTON_RIGHT):
 				building = !building
+				if (building == true):
+					belts.append([])
 				queue_redraw()
 			elif (event.button_index == MOUSE_BUTTON_MIDDLE):
-				supports = []
+				belts = []
 				queue_redraw()
 			elif (building == true):
 				if (event.button_index == MOUSE_BUTTON_WHEEL_UP):
@@ -230,7 +257,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					angle -= step
 					queue_redraw()
 				elif (event.button_index == MOUSE_BUTTON_LEFT):
-					supports.append([ get_snapped_position(), angle ])
+					belts[belts.size() - 1].append([ get_snapped_position(), angle ])
 					queue_redraw()
 				print("Angle: ", rad_to_deg(angle))
 	elif (building == true and event is InputEventMouseMotion):
@@ -242,4 +269,4 @@ func _draw() -> void:
 	if (building == true):
 		draw_support(get_snapped_position(), angle)
 
-	draw_belt()
+	draw_belts()

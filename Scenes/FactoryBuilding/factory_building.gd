@@ -27,6 +27,13 @@ func _ready() -> void:
 	
 	position = building_position * Globals.PIXELS_PER_METER
 	building_image.size = building_size * Globals.PIXELS_PER_METER
-	
+
 	collision.position = building_image.size / 2.0
-	collision.shape.set_size(building_image.size)
+
+	# HACK: The collision shape is shared among all FactoryBuildings, so we
+	#       duplicate it here to handle the different building types.
+	#
+	# TODO: We should only create collision shapes for each building type, not
+	#       every building
+	collision.shape = collision.shape.duplicate()
+	collision.shape.size = building_image.size

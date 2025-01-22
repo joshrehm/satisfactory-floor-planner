@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ccgl2n0s5iw4u"]
 
-[ext_resource type="Script" path="res://Scenes/FactoryBuilding/factory_building.gd" id="1_gdtqv"]
+[ext_resource type="Script" path="res://scenes/factory_building/factory_building.gd" id="1_gdtqv"]
 
 [sub_resource type="SystemFont" id="SystemFont_acgdp"]
 subpixel_positioning = 0

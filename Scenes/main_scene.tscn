@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://mo3j5ebb0h41"]
 
-[ext_resource type="Script" path="res://main_scene.gd" id="1_rj2x8"]
-[ext_resource type="PackedScene" uid="uid://dh48o3fhn8dmv" path="res://Scenes/Camera/camera.tscn" id="1_sui8a"]
-[ext_resource type="PackedScene" uid="uid://ccgl2n0s5iw4u" path="res://Scenes/FactoryBuilding/factory_building.tscn" id="2_rhahk"]
-[ext_resource type="PackedScene" uid="uid://jt22ceo6xh1p" path="res://Scenes/UI/FloorplanUi/floorplan_ui.tscn" id="3_q47ue"]
-[ext_resource type="PackedScene" uid="uid://dxkx84ceefkuf" path="res://Scenes/FactoryBelt/factory_belt.tscn" id="5_ly8fe"]
+[ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_rj2x8"]
+[ext_resource type="PackedScene" uid="uid://dh48o3fhn8dmv" path="res://scenes/camera/camera.tscn" id="1_sui8a"]
+[ext_resource type="PackedScene" uid="uid://ccgl2n0s5iw4u" path="res://scenes/factory_building/factory_building.tscn" id="2_rhahk"]
+[ext_resource type="PackedScene" uid="uid://jt22ceo6xh1p" path="res://scenes/ui/floorplan_ui/floorplan_ui.tscn" id="3_q47ue"]
+[ext_resource type="PackedScene" uid="uid://dxkx84ceefkuf" path="res://scenes/factory_belt/factory_belt.tscn" id="5_ly8fe"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_rj2x8")

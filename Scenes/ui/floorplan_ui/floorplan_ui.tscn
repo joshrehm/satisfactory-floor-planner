@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://jt22ceo6xh1p"]
 
-[ext_resource type="Script" path="res://Scenes/UI/FloorplanUi/floorplan_ui.gd" id="1_if6gf"]
-[ext_resource type="PackedScene" uid="uid://3jjp7nwvusos" path="res://Scenes/UI/FloorplanUi/Background/background.tscn" id="2_kl0r6"]
+[ext_resource type="Script" path="res://scenes/ui/floorplan_ui/floorplan_ui.gd" id="1_if6gf"]
+[ext_resource type="PackedScene" uid="uid://3jjp7nwvusos" path="res://scenes/ui/floorplan_ui/background/background.tscn" id="2_kl0r6"]
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_if6gf")

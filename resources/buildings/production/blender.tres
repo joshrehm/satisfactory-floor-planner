@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://5vlc6vfeokro"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_j8yy7"]
+
+[resource]
+resource_name = "Blender"
+script = ExtResource("1_j8yy7")
+building_width = 18.0
+building_depth = 16.0
+building_height = 15.0

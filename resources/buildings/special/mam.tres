@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://d2pyhdajr0clp"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_whhw7"]
+
+[resource]
+resource_name = "Mam"
+script = ExtResource("1_whhw7")
+building_width = 5.0
+building_depth = 9.0
+building_height = 6.0

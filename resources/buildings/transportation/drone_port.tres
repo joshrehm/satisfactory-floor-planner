@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://ds2b2w5ls3x3q"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_vfl7a"]
+
+[resource]
+resource_name = "DronePort"
+script = ExtResource("1_vfl7a")
+building_width = 24.0
+building_depth = 24.0
+building_height = 15.0

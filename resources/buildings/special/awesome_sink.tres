@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://drq3560q3wfan"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_k3do3"]
+
+[resource]
+resource_name = "AwesomeSink"
+script = ExtResource("1_k3do3")
+building_width = 16.0
+building_depth = 13.0
+building_height = 24.0

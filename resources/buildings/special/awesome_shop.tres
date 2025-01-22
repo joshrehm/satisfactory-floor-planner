@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://db74fubia6yew"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_d45q8"]
+
+[resource]
+resource_name = "AwesomeShop"
+script = ExtResource("1_d45q8")
+building_width = 4.0
+building_depth = 6.0
+building_height = 5.0

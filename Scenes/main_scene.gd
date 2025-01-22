@@ -11,17 +11,20 @@ func _ready() -> void:
 	Globals.set_camera(camera)
 
 	var factory = factory_scene.instantiate()
-	factory.initialize("Constructor", Vector2(8, 8), Vector2(8, 10))
+	factory.building = load("res://resources/buildings/production/constructor.tres")
+	factory.position = Vector2(8 * Globals.PIXELS_PER_METER, 8 * Globals.PIXELS_PER_METER)
 	factory.input_event.connect(_on_factory_building_input_event)
 	add_child(factory)
 	
 	factory = factory_scene.instantiate()
-	factory.initialize("Assembler", Vector2(19, 8), Vector2(10, 15))
+	factory.building = load("res://resources/buildings/production/assembler.tres")
+	factory.position = Vector2(19 * Globals.PIXELS_PER_METER, 8 * Globals.PIXELS_PER_METER)
 	factory.input_event.connect(_on_factory_building_input_event)
 	add_child(factory)
 	
 	factory = factory_scene.instantiate()
-	factory.initialize("Splitter", Vector2(10, 2), Vector2(4, 4))
+	factory.building = load("res://resources/buildings/logistics/merger.tres")
+	factory.position = Vector2(10 * Globals.PIXELS_PER_METER, 2 * Globals.PIXELS_PER_METER)
 	factory.input_event.connect(_on_factory_building_input_event)
 	add_child(factory)
 

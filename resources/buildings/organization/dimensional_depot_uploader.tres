@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://bhln88n10tg5p"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_v0q7y"]
+
+[resource]
+resource_name = "DimensionalDepotUploader"
+script = ExtResource("1_v0q7y")
+building_width = 5.0
+building_depth = 10.0
+building_height = 4.25

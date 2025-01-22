@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://b42hkdchgasyh"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_bfwnc"]
+
+[resource]
+resource_name = "Splitter"
+script = ExtResource("1_bfwnc")
+building_width = 4.0
+building_depth = 4.0
+building_height = 3.0

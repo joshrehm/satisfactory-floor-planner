@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://co5x414oa68qk"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_o6ws1"]
+
+[resource]
+resource_name = "BlueprintDesignerMk3"
+script = ExtResource("1_o6ws1")
+building_width = 56.0
+building_depth = 56.0
+building_height = 50.0

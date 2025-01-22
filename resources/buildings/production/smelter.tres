@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://bgw6eq4bagat5"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_a3voa"]
+
+[resource]
+resource_name = "Smelter"
+script = ExtResource("1_a3voa")
+building_width = 5.0
+building_depth = 9.0
+building_height = 9.0

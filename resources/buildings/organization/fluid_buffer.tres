@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://bl7nj286033lu"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_w6uw0"]
+
+[resource]
+resource_name = "FluidBuffer"
+script = ExtResource("1_w6uw0")
+building_width = 6.0
+building_depth = 6.0
+building_height = 8.0

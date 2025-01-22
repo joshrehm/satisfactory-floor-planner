@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://d2rr1ha824ykl"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_xjc8x"]
+
+[resource]
+resource_name = "StorageContainer"
+script = ExtResource("1_xjc8x")
+building_width = 5.0
+building_depth = 11.0
+building_height = 4.0

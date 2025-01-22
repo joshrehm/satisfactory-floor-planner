@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://cget6ckac62y5"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_bv61i"]
+
+[resource]
+resource_name = "NuclearPowerPlant"
+script = ExtResource("1_bv61i")
+building_width = 36.0
+building_depth = 43.0
+building_height = 39.0

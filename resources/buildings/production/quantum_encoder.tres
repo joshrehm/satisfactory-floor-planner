@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://ncgrh405bvjj"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_gcl3a"]
+
+[resource]
+resource_name = "QuantumEncoder"
+script = ExtResource("1_gcl3a")
+building_width = 22.0
+building_depth = 48.0
+building_height = 18.0

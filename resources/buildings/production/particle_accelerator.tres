@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://ydq5htwmjyjk"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_qn46e"]
+
+[resource]
+resource_name = "Assembler"
+script = ExtResource("1_qn46e")
+building_width = 10.0
+building_depth = 15.0
+building_height = 11.0

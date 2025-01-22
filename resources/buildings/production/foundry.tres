@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://cxvmmstw8qiie"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_inflp"]
+
+[resource]
+resource_name = "Foundry"
+script = ExtResource("1_inflp")
+building_width = 10.0
+building_depth = 9.0
+building_height = 9.0

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://8fvmk30dey8h"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_w4p6t"]
+
+[resource]
+resource_name = "Constructor"
+script = ExtResource("1_w4p6t")
+building_width = 8.0
+building_depth = 10.0
+building_height = 8.0

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://d3g7ull8j2yvj"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_sae0o"]
+
+[resource]
+resource_name = "Manufacturer"
+script = ExtResource("1_sae0o")
+building_width = 18.0
+building_depth = 20.0
+building_height = 12.0

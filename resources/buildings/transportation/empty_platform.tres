@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=2 format=3 uid="uid://c430rs7tj8wdf"]
+
+[ext_resource type="Script" path="res://resources/building_resource.gd" id="1_v71kl"]
+
+[resource]
+resource_name = "EmptyPlatform"
+script = ExtResource("1_v71kl")
+building_width = 34.0
+building_depth = 16.0
+building_height = 1.0

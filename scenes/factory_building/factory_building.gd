@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name FactoryBuilding
+
 @export var building: BuildingResource
 @onready var building_image = $BuildingSprite
 @onready var building_label = $BuildingSprite/BuildingLabel

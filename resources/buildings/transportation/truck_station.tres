@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://resources/building_resource.gd" id="1_bq8yg"]
 
 [resource]
-resource_name = "Merger"
+resource_name = "TruckStation"
 script = ExtResource("1_bq8yg")
-building_width = 4.0
-building_depth = 4.0
-building_height = 3.0
+building_type = ""
+building_width = 16.0
+building_depth = 22.0
+building_height = 12.0

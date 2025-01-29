@@ -8,9 +8,127 @@ script = ExtResource("1_if6gf")
 
 [node name="Background" parent="." instance=ExtResource("2_kl0r6")]
 
+[node name="MenuBar" type="MenuBar" parent="."]
+offset_left = 19.0
+offset_top = 17.0
+offset_right = 561.0
+offset_bottom = 48.0
+prefer_global_menu = false
+
+[node name="Logistics" type="PopupMenu" parent="MenuBar"]
+disable_3d = true
+title = "Logistics"
+item_count = 4
+item_0/text = "Merger"
+item_1/text = "Programmable Splitter"
+item_1/id = 1
+item_2/text = "Smart Splitter"
+item_2/id = 2
+item_3/text = "Splitter"
+item_3/id = 3
+
+[node name="Organization" type="PopupMenu" parent="MenuBar"]
+item_count = 5
+item_0/text = "Dimensional Depot"
+item_1/text = "Fluid Buffer"
+item_1/id = 1
+item_2/text = "Industrial Fluid Buffer"
+item_2/id = 2
+item_3/text = "Industrial Storage Container"
+item_3/id = 3
+item_4/text = "Storage Container"
+item_4/id = 4
+
+[node name="Power" type="PopupMenu" parent="MenuBar"]
+auto_translate_mode = 1
+title = "Logistics"
+item_count = 5
+item_0/text = "Alien Power Augmenter"
+item_1/text = "Biomass Burner"
+item_1/id = 1
+item_2/text = "Coal Powered Generator"
+item_2/id = 2
+item_3/text = "Fuel Powered Generator"
+item_3/id = 3
+item_4/text = "Nuclear Power Plant"
+item_4/id = 4
+
+[node name="Production" type="PopupMenu" parent="MenuBar"]
+auto_translate_mode = 1
+title = "Production"
+item_count = 11
+item_0/text = "Assembler"
+item_1/text = "Blender"
+item_1/id = 1
+item_2/text = "Constructor"
+item_2/id = 2
+item_3/text = "Converter"
+item_3/id = 3
+item_4/text = "Foundry"
+item_4/id = 4
+item_5/text = "Manufacturer"
+item_5/id = 5
+item_6/text = "Packager"
+item_6/id = 6
+item_7/text = "Particle Accelerator"
+item_7/id = 7
+item_8/text = "Quantum Encoder"
+item_8/id = 8
+item_9/text = "Refinery"
+item_9/id = 9
+item_10/text = "Smelter"
+item_10/id = 10
+
+[node name="Special" type="PopupMenu" parent="MenuBar"]
+item_count = 10
+item_0/text = "Awesome Shop"
+item_1/text = "Awesome Sink"
+item_1/id = 1
+item_2/text = "Blueprint Designer MK1"
+item_2/id = 2
+item_3/text = "Blueprint Designer MK2"
+item_3/id = 3
+item_4/text = "Blueprint Designer MK3"
+item_4/id = 4
+item_5/text = "Crafting Bench"
+item_5/id = 5
+item_6/text = "Equipment Workshop"
+item_6/id = 6
+item_7/text = "HUB"
+item_7/id = 7
+item_8/text = "MAM"
+item_8/id = 8
+item_9/text = "Space Elevator"
+item_9/id = 9
+
+[node name="Transportation" type="PopupMenu" parent="MenuBar"]
+item_count = 5
+item_0/text = "Drone Port"
+item_1/text = "Empty Platform"
+item_1/id = 1
+item_2/text = "Freight Platform"
+item_2/id = 2
+item_3/text = "Train Station"
+item_3/id = 3
+item_4/text = "Truck Station"
+item_4/id = 4
+
 [node name="SelectionBox" type="ReferenceRect" parent="."]
 visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 border_width = 4.0
 editor_only = false
+
+[connection signal="about_to_popup" from="MenuBar/Logistics" to="." method="_on_logistics_about_to_popup"]
+[connection signal="id_pressed" from="MenuBar/Logistics" to="." method="_on_logistics_id_pressed"]
+[connection signal="about_to_popup" from="MenuBar/Organization" to="." method="_on_popup_about_to_popup"]
+[connection signal="id_pressed" from="MenuBar/Organization" to="." method="_on_organization_id_pressed"]
+[connection signal="about_to_popup" from="MenuBar/Power" to="." method="_on_popup_about_to_popup"]
+[connection signal="id_pressed" from="MenuBar/Power" to="." method="_on_power_id_pressed"]
+[connection signal="about_to_popup" from="MenuBar/Production" to="." method="_on_popup_about_to_popup"]
+[connection signal="id_pressed" from="MenuBar/Production" to="." method="_on_production_id_pressed"]
+[connection signal="about_to_popup" from="MenuBar/Special" to="." method="_on_popup_about_to_popup"]
+[connection signal="id_pressed" from="MenuBar/Special" to="." method="_on_special_id_pressed"]
+[connection signal="about_to_popup" from="MenuBar/Transportation" to="." method="_on_popup_about_to_popup"]
+[connection signal="id_pressed" from="MenuBar/Transportation" to="." method="_on_transportation_id_pressed"]

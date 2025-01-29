@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://resources/building_resource.gd" id="1_qjuah"]
 
 [resource]
-resource_name = "TrainStation"
+resource_name = "FreightPlatform"
 script = ExtResource("1_qjuah")
+building_type = ""
 building_width = 34.0
 building_depth = 16.0
 building_height = 20.0

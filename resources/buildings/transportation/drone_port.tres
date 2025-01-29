@@ -5,6 +5,7 @@
 [resource]
 resource_name = "DronePort"
 script = ExtResource("1_vfl7a")
+building_type = ""
 building_width = 24.0
 building_depth = 24.0
 building_height = 15.0

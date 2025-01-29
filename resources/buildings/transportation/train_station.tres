@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://resources/building_resource.gd" id="1_8e26r"]
 
 [resource]
-resource_name = "DronePort"
+resource_name = "TrainStation"
 script = ExtResource("1_8e26r")
-building_width = 24.0
-building_depth = 24.0
-building_height = 15.0
+building_type = ""
+building_width = 34.0
+building_depth = 16.0
+building_height = 20.0

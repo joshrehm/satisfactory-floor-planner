@@ -5,9 +5,10 @@ const MIN_ZOOM: float = 0.01    # Down to 1%
 
 signal zooming_in(percentage: float)
 signal zooming_out(percentage: float)
-signal panning()
-signal panning_started()
-signal panning_finished()
+
+signal panning_started(position: Vector2)
+signal panning_finished(position: Vector2)
+signal panning(delta: Vector2)
 
 var is_panning: bool = false    # True if we're panning, false otherwise
 var last_pan_position: Vector2  # The last position we calculated panning distance
@@ -35,7 +36,6 @@ func _apply_zoom(delta_zoom: float) -> void:
 	zoom = zoom.clampf(MIN_ZOOM, MAX_ZOOM)
 	
 	# Move the camera towards the mouse cursor
-	# TODO: Should we emit panning?
 	position -= (get_global_mouse_position() - start_mouse_position)
 	
 	if delta_zoom > 0:
@@ -44,29 +44,23 @@ func _apply_zoom(delta_zoom: float) -> void:
 		zooming_out.emit(zoom.x + 100.0)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("camera_pan"):
-		is_panning = true
-		last_pan_position = event.position
-		panning_started.emit()
-	elif event.is_action_released("camera_pan"):
+	if (event is InputEventMouseMotion and Input.is_action_pressed("pan_camera")):
+		if (!is_panning):
+			is_panning = true
+			last_pan_position = event.position
+			panning_started.emit(event.position)
+		else:
+			var mouse_position = get_viewport().get_mouse_position()
+			var delta = (last_pan_position - mouse_position) / zoom
+			last_pan_position = mouse_position
+
+			position += delta
+			panning.emit(delta)
+
+	if event.is_action_released("pan_camera"):
 		is_panning = false
-		panning_finished.emit()
+		panning_finished.emit(event.position)
 	elif event.is_action_pressed("zoom_in"):
 		_apply_zoom(zoom_speed)
 	elif event.is_action_pressed("zoom_out"):
 		_apply_zoom(-zoom_speed)
-
-func _unhandled_input(event: InputEvent) -> void:
-	#var pos = get_global_mouse_position()
-	#print("Mouse: (", pos.x, ", ", pos.y, ") (", floor(pos.x / Globals.PIXELS_PER_METER),
-	#	", ", floor(pos.y / Globals.PIXELS_PER_METER), ")")
-		
-	if not is_panning or not event is InputEventMouseMotion:
-		return
-
-	var mouse_position = get_viewport().get_mouse_position()
-	var delta = (last_pan_position - mouse_position) / zoom
-	last_pan_position = mouse_position
-
-	position += delta
-	panning.emit()

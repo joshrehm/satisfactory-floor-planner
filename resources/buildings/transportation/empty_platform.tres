@@ -5,6 +5,7 @@
 [resource]
 resource_name = "EmptyPlatform"
 script = ExtResource("1_v71kl")
+building_type = ""
 building_width = 34.0
 building_depth = 16.0
 building_height = 1.0

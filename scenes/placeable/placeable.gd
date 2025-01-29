@@ -1,11 +1,22 @@
 extends Area2D
+class_name Placeable
 
-class_name FactoryBuilding
+@export var tag: String
 
-@export var building: BuildingResource
+signal placeable_input_event(viewport: Node, event: InputEvent, building: Placeable)
+
+const scene: PackedScene = preload("res://scenes/placeable/placeable.tscn")
+
+var building: BuildingResource
+
 @onready var building_image = $BuildingSprite
 @onready var building_label = $BuildingSprite/BuildingLabel
 @onready var collision = $CollisionBox
+
+static func create_building(resource: BuildingResource):
+	var instance = scene.instantiate()
+	instance.building = resource
+	return instance
 
 func _ready() -> void:
 	building_label.text = building.resource_name
@@ -14,3 +25,6 @@ func _ready() -> void:
 	#       if we run into one.
 	collision.position = building.get_building_size() / 2.0
 	collision.shape = building.get_collision_shape()
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	placeable_input_event.emit(viewport, event, self)

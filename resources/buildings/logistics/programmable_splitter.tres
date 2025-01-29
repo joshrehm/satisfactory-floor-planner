@@ -5,6 +5,7 @@
 [resource]
 resource_name = "ProgrammableSplitter"
 script = ExtResource("1_20jhx")
+building_type = ""
 building_width = 4.0
 building_depth = 4.0
 building_height = 3.0
